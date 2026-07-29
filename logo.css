@@ -1,0 +1,7 @@
+.logo span{font-size:36px;color:#202a39}
+.vendor-google span{background:conic-gradient(#4285f4,#34a853,#fbbc05,#ea4335,#4285f4);background-clip:text;-webkit-background-clip:text;color:transparent}
+.vendor-anthropic span{color:#e56f42}
+.vendor-deepseek span{color:#526fec}
+.vendor-openai-plus span{color:#2b8ee8}
+.vendor-grok-xai span{font-size:29px}
+.vendor-doubao span,.vendor-bailian span{color:#775bed}
