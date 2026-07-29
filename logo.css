@@ -12,3 +12,15 @@
 .topbar .brand{font-size:25px;color:#25364f}
 .page-title{color:#1686f8;font-size:19px;font-weight:700;padding:12px 4px 10px;border-bottom:3px solid #1686f8}
 @media(max-width:760px){.topbar{padding:0 16px}.topbar .brand{font-size:20px}.page-title{font-size:16px}}
+.sidebar{position:sticky;top:12px;align-self:start;max-height:calc(100vh - 24px);overflow-y:auto;padding:4px 10px 30px 0;scrollbar-width:thin;scrollbar-color:#c8d5e6 transparent}
+.filter-group{padding:0 0 20px;margin-bottom:17px;border-bottom:1px solid #e8edf5}
+.filter-group:last-child{border-bottom:0}
+.filter-group h2{font-size:15px;font-weight:700;margin:0 8px 9px;color:#72839b}
+.filter-options{display:grid;grid-template-rows:1fr;transition:.2s ease}
+.filter-item{min-height:35px;transition:background .15s,color .15s}
+.filter-item:hover:not(.selected){background:#edf3fb}
+.filter-item.selected{box-shadow:inset 3px 0 0 #1789ff}
+.expand{display:flex;align-items:center;gap:5px;width:100%;padding:8px 10px;border:0;border-radius:8px;background:transparent;color:#6f8097;font:500 13px Inter,"Noto Sans SC",sans-serif;cursor:pointer}
+.expand:hover{background:#eaf2fc;color:#147fee}
+.expand span{width:13px;text-align:center}
+@media(max-width:760px){.sidebar{position:static;max-height:none;overflow-x:auto;overflow-y:hidden;padding:0}.filter-group{border:0;padding:0}.filter-options,.expand{display:none}}
