@@ -38,9 +38,13 @@ function filteredModels() {
     (!needle||model.n.toLowerCase().includes(needle))
   );
 }
+function vendorMark(vendor) {
+  const marks = {'OpenAI':'◎','OpenAI Plus':'◎','Anthropic':'✳','Google':'✦','DeepSeek':'◒','Grok (xAI)':'𝕏','Moonshot':'◐','阿里巴巴':'Q','Mistral':'M','字节跳动':'豆','Meta':'∞','Minimax':'M','Kling':'K','Doubao':'豆','Bailian':'Q'};
+  return marks[vendor] || vendor.slice(0,1).toUpperCase();
+}
+function vendorClass(vendor) { return 'vendor-'+vendor.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
 function card(model) {
-  const logo = model.i ? `<img src="${escapeHtml(model.i)}" alt="${escapeHtml(model.v)}" loading="lazy" />` : `<span>${escapeHtml(model.v.slice(0,1))}</span>`;
-  return `<article class="card"><div class="card-head"><div class="logo">${logo}</div><span class="type-pill">${escapeHtml(model.y)}</span></div><h3>${escapeHtml(model.n)}</h3><div class="vendor">${escapeHtml(model.v)}</div><p>${escapeHtml(model.d)}</p><div class="prices">${model.p.map(line=>{const split=line.indexOf(' ');return `<div>${escapeHtml(line.slice(0,split))} <b>${escapeHtml(line.slice(split+1))}</b></div>`}).join('')}</div><div class="tags">${model.g.slice(0,4).map(tag=>`<span>${escapeHtml(tag)}</span>`).join('')}<span class="billing">● ${billLabel(model.q)}</span></div><div class="card-foot"><button class="copy" type="button" data-name="${encodeURIComponent(model.n)}" aria-label="复制模型名称 ${escapeHtml(model.n)}">▣</button></div></article>`;
+  return `<article class="card"><div class="card-head"><div class="logo ${vendorClass(model.v)}"><span>${escapeHtml(vendorMark(model.v))}</span></div><span class="type-pill">${escapeHtml(model.y)}</span></div><h3>${escapeHtml(model.n)}</h3><div class="vendor">${escapeHtml(model.v)}</div><p>${escapeHtml(model.d)}</p><div class="prices">${model.p.map(line=>{const split=line.indexOf(' ');return `<div>${escapeHtml(line.slice(0,split))} <b>${escapeHtml(line.slice(split+1))}</b></div>`}).join('')}</div><div class="tags">${model.g.slice(0,4).map(tag=>`<span>${escapeHtml(tag)}</span>`).join('')}<span class="billing">● ${billLabel(model.q)}</span></div><div class="card-foot"><button class="copy" type="button" data-name="${encodeURIComponent(model.n)}" aria-label="复制模型名称 ${escapeHtml(model.n)}">▣</button></div></article>`;
 }
 function renderPagination(totalPages) {
   if (totalPages <= 1) { pagination.innerHTML=''; return; }
