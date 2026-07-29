@@ -16,12 +16,12 @@ function items() {
 function showToast(message) { toast.textContent = message; toast.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), 1600); }
 async function copyModel(name, button) {
   try { await navigator.clipboard.writeText(name); } catch { const input = document.createElement('textarea'); input.value = name; document.body.append(input); input.select(); document.execCommand('copy'); input.remove(); }
-  button.textContent = '已复制'; button.classList.add('done'); showToast(`已复制：${name}`); setTimeout(() => { button.textContent = '复制'; button.classList.remove('done'); }, 1200);
+  button.innerHTML = '<span aria-hidden="true">✓</span> 已复制'; button.classList.add('done'); showToast(`已复制：${name}`); setTimeout(() => { button.innerHTML = '<span aria-hidden="true">⧉</span> 复制模型名称'; button.classList.remove('done'); }, 1200);
 }
 function render() {
   const found = items(), visible = found.slice(0, shown);
   count.textContent = `共 ${found.length} / ${allModels.length} 个模型`;
-  grid.innerHTML = visible.map(name => `<article class="card"><div class="card-top"><h3 class="model-name">${escapeHtml(name)}</h3><button class="copy" type="button" data-name="${encodeURIComponent(name)}">复制</button></div><div class="vendor-name">${vendorOf(name)}</div></article>`).join('');
+  grid.innerHTML = visible.map(name => `<article class="card"><div class="card-top"><h3 class="model-name">${escapeHtml(name)}</h3></div><div class="card-bottom"><span class="vendor-name">${vendorOf(name)}</span><button class="copy" type="button" aria-label="复制模型名称 ${escapeHtml(name)}" data-name="${encodeURIComponent(name)}"><span aria-hidden="true">⧉</span> 复制模型名称</button></div></article>`).join('');
   grid.querySelectorAll('.copy').forEach(button => button.addEventListener('click', () => copyModel(decodeURIComponent(button.dataset.name), button)));
   empty.hidden = Boolean(found.length); more.hidden = shown >= found.length || !found.length;
 }
