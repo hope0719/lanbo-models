@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="OpenLux 模型广场 — 浏览并比较主流 AI 模型价格。" />
+    <title>模型广场 | OpenLux</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="OpenLux 首页"><span class="brand-mark">◈</span><span>OpenLux</span></a>
+      <nav aria-label="主导航">
+        <a href="#top">首页</a><a class="active" href="#models">模型广场</a><a href="#about">代理加盟</a><a href="#about">联系我们</a>
+      </nav>
+      <div class="header-actions"><button class="lang">中 / EN</button><a class="login" href="#about">登录</a><a class="signup" href="#about">免费注册 <span>↗</span></a></div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <p class="eyebrow"><span></span> ONE API · ALL THE MODELS</p>
+        <h1>模型广场</h1>
+        <p class="hero-copy">聚合领先 AI 模型，一处接入，即刻调用。<br />透明价格、灵活选择，让每一次创新都有更优解。</p>
+        <div class="hero-stats"><div><strong>80+</strong><span>主流模型</span></div><div><strong>14</strong><span>模型厂商</span></div><div><strong>99.9%</strong><span>服务可用性</span></div></div>
+      </section>
+
+      <section id="models" class="catalog" aria-label="模型目录">
+        <div class="catalog-head"><div><p class="section-kicker">MODEL CATALOG</p><h2>探索全部模型</h2></div><p id="modelCount" class="count">正在加载模型</p></div>
+        <div class="toolbar">
+          <label class="search"><span>⌕</span><input id="search" type="search" placeholder="搜索模型名称" autocomplete="off" /></label>
+          <button class="view-toggle active" data-view="card" aria-label="卡片视图">▦</button><button class="view-toggle" data-view="list" aria-label="列表视图">☷</button>
+        </div>
+        <div id="categories" class="categories" aria-label="按厂商筛选"></div>
+        <div class="filter-row"><button id="allTypes" class="filter selected" data-type="all">全部类型</button><button class="filter" data-type="text">文本对话</button><button class="filter" data-type="vision">视觉理解</button><button class="filter" data-type="image">图像生成</button><button class="filter" data-type="audio">语音音频</button><button class="filter" data-type="video">视频生成</button><span class="spacer"></span><button id="sortButton" class="sort">综合排序 <span>⌄</span></button></div>
+        <div id="modelGrid" class="model-grid"></div>
+        <div id="empty" class="empty" hidden>没有找到匹配的模型<br /><small>试试其他关键词或筛选条件</small></div>
+        <button id="loadMore" class="load-more">加载更多模型 <span>↓</span></button>
+      </section>
+
+      <section id="about" class="cta"><div><p class="section-kicker">READY WHEN YOU ARE</p><h2>一个接口，连接无限智能。</h2><p>注册即赠体验额度，开始构建你的下一代 AI 应用。</p></div><a href="#top">立即免费开始 <span>→</span></a></section>
+    </main>
+    <footer><a class="brand" href="#top"><span class="brand-mark">◈</span><span>OpenLux</span></a><p>© 2026 OpenLux. Built for builders.</p><div><a href="#about">服务条款</a><a href="#about">隐私政策</a></div></footer>
+    <script src="app.js"></script>
+  </body>
+</html>
