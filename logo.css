@@ -8,3 +8,7 @@
 .prices{display:flex;flex-direction:column;gap:3px;min-height:76px;padding:7px 0}
 .price-row{display:flex;align-items:baseline;gap:5px;color:#66768d;font-size:12.5px;line-height:1.55;white-space:nowrap}
 .price-row strong{color:#48576e;font-size:13px;font-weight:700;letter-spacing:.05px}
+.topbar{justify-content:space-between;padding:0 34px 0 48px}
+.topbar .brand{font-size:25px;color:#25364f}
+.page-title{color:#1686f8;font-size:19px;font-weight:700;padding:12px 4px 10px;border-bottom:3px solid #1686f8}
+@media(max-width:760px){.topbar{padding:0 16px}.topbar .brand{font-size:20px}.page-title{font-size:16px}}
