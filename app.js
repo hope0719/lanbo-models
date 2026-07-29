@@ -1,5 +1,6 @@
 const models = Array.isArray(window.OPENLUX_CATALOG) ? window.OPENLUX_CATALOG : [];
 const state = { vendor: '全部供应商', type: '全部类型', tag: '全部标签', billing: '全部类型', query: '', page: 1 };
+const expanded = { vendor: false, type: false, tag: false, billing: false };
 const PAGE_SIZE = 30;
 const grid = document.querySelector('#modelGrid');
 const pagination = document.querySelector('#pagination');
@@ -17,16 +18,23 @@ const tagCounts = models.reduce((map, model) => { model.g.forEach(tag => map.set
 
 function topEntries(map, limit) { return [...map.entries()].sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, limit); }
 function preferredEntries(map, names) { return names.filter(name=>map.has(name)).map(name=>[name,map.get(name)]); }
+function orderedEntries(map, preferred) {
+  const preferredSet = new Set(preferred);
+  return [...preferredEntries(map,preferred), ...[...map.entries()].filter(([name])=>!preferredSet.has(name)).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]))];
+}
 function filterMarkup(title, allLabel, entries, key) {
   const selected = state[key];
-  return `<h2>${title}</h2><button class="filter-item ${selected===allLabel?'selected':''}" data-key="${key}" data-value="${escapeHtml(allLabel)}"><span>${allLabel}</span><b>${models.length}</b></button>${entries.map(([name,count])=>`<button class="filter-item ${selected===name?'selected':''}" data-key="${key}" data-value="${escapeHtml(name)}"><span><i class="filter-dot"></i>${escapeHtml(name)}</span><b>${count}</b></button>`).join('')}<button class="expand">⌄ 展开更多</button>`;
+  const visibleEntries = expanded[key] ? entries : entries.slice(0,5);
+  const toggle = entries.length>5 ? `<button class="expand" data-expand="${key}" aria-expanded="${expanded[key]}"><span>${expanded[key]?'⌃':'⌄'}</span> ${expanded[key]?'收起':'展开更多'}</button>` : '';
+  return `<h2>${title}</h2><button class="filter-item ${selected===allLabel?'selected':''}" data-key="${key}" data-value="${escapeHtml(allLabel)}"><span>${allLabel}</span><b>${models.length}</b></button><div class="filter-options">${visibleEntries.map(([name,count])=>`<button class="filter-item ${selected===name?'selected':''}" data-key="${key}" data-value="${escapeHtml(name)}"><span><i class="filter-dot"></i>${escapeHtml(name)}</span><b>${count}</b></button>`).join('')}</div>${toggle}`;
 }
 function renderFilters() {
-  document.querySelector('#vendorFilter').innerHTML = filterMarkup('供应商','全部供应商',preferredEntries(vendorCounts,['OpenAI','Anthropic','Google','OpenAI Plus','DeepSeek']),'vendor');
-  document.querySelector('#typeFilter').innerHTML = filterMarkup('模型类型','全部类型',preferredEntries(typeCounts,['对话','检索','图像','文本','音视频']),'type');
-  document.querySelector('#tagFilter').innerHTML = filterMarkup('标签','全部标签',preferredEntries(tagCounts,['参考生视频','参考图','动作模仿','对话','对口型']),'tag');
-  document.querySelector('#billingFilter').innerHTML = filterMarkup('计费类型','全部类型',preferredEntries(billingCounts,['按量计费','按次计费','按视频尺寸计费','按视频时间计费']),'billing');
+  document.querySelector('#vendorFilter').innerHTML = filterMarkup('供应商','全部供应商',orderedEntries(vendorCounts,['OpenAI','Anthropic','Google','OpenAI Plus','DeepSeek']),'vendor');
+  document.querySelector('#typeFilter').innerHTML = filterMarkup('模型类型','全部类型',orderedEntries(typeCounts,['对话','检索','图像','文本','音视频']),'type');
+  document.querySelector('#tagFilter').innerHTML = filterMarkup('标签','全部标签',orderedEntries(tagCounts,['参考生视频','参考图','动作模仿','对话','对口型']),'tag');
+  document.querySelector('#billingFilter').innerHTML = filterMarkup('计费类型','全部类型',orderedEntries(billingCounts,['按量计费','按次计费','按视频尺寸计费','按视频时间计费']),'billing');
   document.querySelectorAll('.filter-item').forEach(button => button.addEventListener('click', () => { state[button.dataset.key] = button.dataset.value; state.page = 1; renderFilters(); render(); }));
+  document.querySelectorAll('.expand').forEach(button => button.addEventListener('click',()=>{expanded[button.dataset.expand]=!expanded[button.dataset.expand];renderFilters()}));
 }
 function filteredModels() {
   const needle = state.query.toLowerCase();
@@ -71,5 +79,5 @@ async function copyName(name, button) {
 }
 function escapeHtml(value) { return String(value).replace(/[&<>"']/g, char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char])); }
 document.querySelector('#search').addEventListener('input',event=>{state.query=event.target.value;state.page=1;render()});
-document.querySelector('#reset').addEventListener('click',()=>{Object.assign(state,{vendor:'全部供应商',type:'全部类型',tag:'全部标签',billing:'全部类型',query:'',page:1});document.querySelector('#search').value='';renderFilters();render()});
+document.querySelector('#reset').addEventListener('click',()=>{Object.assign(state,{vendor:'全部供应商',type:'全部类型',tag:'全部标签',billing:'全部类型',query:'',page:1});Object.keys(expanded).forEach(key=>expanded[key]=false);document.querySelector('#search').value='';renderFilters();render()});
 renderFilters(); render();
