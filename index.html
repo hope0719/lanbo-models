@@ -1,37 +1,45 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="OpenLux 模型广场。" />
-    <title>模型广场 | OpenLux</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css?v=1167-full-2" />
-  </head>
-  <body>
-    <main>
-      <header class="masthead">
-        <a class="brand" href="./" aria-label="OpenLux 模型广场"><span>◈</span> OpenLux</a>
-        <p>MODEL CATALOG / 模型广场</p>
-      </header>
-      <section class="intro">
-        <p class="eyebrow"><i></i> COMPLETE MODEL DIRECTORY</p>
-        <h1>模型广场</h1>
-        <p>来自 OpenLux 公开价格配置的完整模型目录。模型名称保留原始拼写，可一键复制用于 API 调用。</p>
-      </section>
-      <section class="catalog" aria-label="模型列表">
-        <div class="catalog-head"><div><h2>全部模型</h2><p id="modelCount">正在加载模型</p></div><div class="source">STATIC CATALOG</div></div>
-        <div class="toolbar"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="搜索或粘贴模型名称" autocomplete="off" /></label><button id="sortButton" class="sort">名称排序 A–Z</button></div>
-        <div id="vendors" class="vendors" aria-label="厂商筛选"></div>
-        <p class="copy-tip">点击每张卡片的“复制模型名称”即可复制完整、原始的模型名称。</p>
-        <div id="modelGrid" class="model-grid"></div>
-        <div id="empty" class="empty" hidden>没有找到匹配的模型名称。</div>
-      </section>
-    </main>
-    <div id="toast" role="status" aria-live="polite"></div>
-    <script src="models.js?v=1167-full-2"></script>
-    <script src="app.js?v=1167-full-2"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="OpenLux 模型广场：404 个模型的名称与价格。" />
+  <title>模型广场 | OpenLux</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=404-catalog-1" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./"><span class="brand-mark">◢</span><b>OpenLux</b></a>
+    <nav><a href="#">首页</a><a href="#">控制台</a><a class="active" href="#">模型广场</a><a href="#">代理加盟</a><a href="#">API 文档</a></nav>
+    <div class="top-actions"><button aria-label="通知">♧<i>99+</i></button><button aria-label="切换主题">☼</button><button aria-label="切换语言">文A</button><a class="login" href="#">登录</a><a class="register" href="#">注册</a></div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <button id="reset" class="reset">↻&nbsp; 重置</button>
+      <div id="vendorFilter" class="filter-group"></div>
+      <div id="typeFilter" class="filter-group"></div>
+      <div id="tagFilter" class="filter-group"></div>
+      <div id="billingFilter" class="filter-group"></div>
+    </aside>
+
+    <section class="content" aria-label="模型广场">
+      <div class="toolbar">
+        <label class="search"><span>⌕</span><input id="search" type="search" placeholder="模糊搜索模型名称" autocomplete="off" /></label>
+        <span class="divider"></span><span class="rate-label">倍率</span><button class="switch" aria-label="倍率显示"><i></i></button>
+        <button class="table-button">表格视图</button><button class="unit-button">M</button>
+      </div>
+      <div id="resultSummary" class="result-summary"></div>
+      <div id="modelGrid" class="model-grid"></div>
+      <div id="empty" class="empty" hidden>没有找到匹配的模型</div>
+      <nav id="pagination" class="pagination" aria-label="模型分页"></nav>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="models-data.js?v=404-catalog-1"></script>
+  <script src="app.js?v=404-catalog-1"></script>
+</body>
 </html>
