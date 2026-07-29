@@ -5,3 +5,6 @@
 .vendor-openai-plus span{color:#2b8ee8}
 .vendor-grok-xai span{font-size:29px}
 .vendor-doubao span,.vendor-bailian span{color:#775bed}
+.prices{display:flex;flex-direction:column;gap:3px;min-height:76px;padding:7px 0}
+.price-row{display:flex;align-items:baseline;gap:5px;color:#66768d;font-size:12.5px;line-height:1.55;white-space:nowrap}
+.price-row strong{color:#48576e;font-size:13px;font-weight:700;letter-spacing:.05px}
